@@ -71,6 +71,7 @@ ifdef CONFIG_CLANG
   CFLAGS += -Wwrite-strings
   CFLAGS += -Wchar-subscripts -funsigned-char
   CFLAGS += -MMD -MF $(OBJDIR)/$(@F).d
+  CFLAGS += -fPIE
   ifdef CONFIG_DEFAULT_AR
     AR=$(CROSS_PREFIX)ar
   else
@@ -85,6 +86,7 @@ else
   CC=$(CROSS_PREFIX)gcc
   CFLAGS=-g -Wall -MMD -MF $(OBJDIR)/$(@F).d
   CFLAGS += -Wno-array-bounds -Wno-format-truncation
+  CFLAGS += -fPIE
   ifdef CONFIG_LTO
     AR=$(CROSS_PREFIX)gcc-ar
   else
