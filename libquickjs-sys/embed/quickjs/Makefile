@@ -61,7 +61,7 @@ else
 endif
 ifdef CONFIG_CLANG
   HOST_CC=clang
-  CC=$(CROSS_PREFIX)clang
+  CC?=$(CROSS_PREFIX)clang
   CFLAGS=-g -Wall -MMD -MF $(OBJDIR)/$(@F).d
   CFLAGS += -Wextra
   CFLAGS += -Wno-sign-compare
@@ -73,24 +73,24 @@ ifdef CONFIG_CLANG
   CFLAGS += -MMD -MF $(OBJDIR)/$(@F).d
   CFLAGS += -fPIE -fPIC
   ifdef CONFIG_DEFAULT_AR
-    AR=$(CROSS_PREFIX)ar
+    AR?=$(CROSS_PREFIX)ar
   else
     ifdef CONFIG_LTO
-      AR=$(CROSS_PREFIX)llvm-ar
+      AR?=$(CROSS_PREFIX)llvm-ar
     else
-      AR=$(CROSS_PREFIX)ar
+      AR?=$(CROSS_PREFIX)ar
     endif
   endif
 else
   HOST_CC=gcc
-  CC=$(CROSS_PREFIX)gcc
+  CC?=$(CROSS_PREFIX)gcc
   CFLAGS=-g -Wall -MMD -MF $(OBJDIR)/$(@F).d
   CFLAGS += -Wno-array-bounds -Wno-format-truncation
   CFLAGS += -fPIE -fPIC
   ifdef CONFIG_LTO
-    AR=$(CROSS_PREFIX)gcc-ar
+    AR?=$(CROSS_PREFIX)gcc-ar
   else
-    AR=$(CROSS_PREFIX)ar
+    AR?=$(CROSS_PREFIX)ar
   endif
 endif
 STRIP=$(CROSS_PREFIX)strip
